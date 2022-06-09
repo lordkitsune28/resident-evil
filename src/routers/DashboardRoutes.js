@@ -1,7 +1,9 @@
 import {
     Routes, Route
 } from 'react-router-dom';
+import { Game } from '../components/Game';
 import { Menu } from '../components/Menu';
+import { Score } from '../components/Score';
 
 export const DashboardRoutes = () => {
     return (
@@ -11,7 +13,8 @@ export const DashboardRoutes = () => {
                 <Routes>
                     <Route path="/" element={<Menu />} />
                 
-                    {/* <Route path="/recibo" element={<Recibo />} /> */}
+                    <Route path="/score" element={<Score />} />
+                    <Route path="/game" element={<Game />} />
                 </Routes>
             </div>
 

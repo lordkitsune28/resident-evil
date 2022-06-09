@@ -3,3 +3,7 @@ export const types = {
     logout: 'logout',
     register: 'register'
 }
+export const typesScore= {
+    list: 'list',
+    agregar: "agregar"
+}

@@ -38,8 +38,8 @@ export const AppRouters = () => {
 
     if (checking) {
         return (
-            <div className="position-relative">
-            <img className="position-absolute top-50 start-50 translate-middle" src="https://res.cloudinary.com/donoutoby/image/upload/v1654671112/4dd277_835e8d46ca034bd4a8448647bec05a45_igtz7v.gif" alt="cargando..." />
+            <div>
+            <img className="spinner" src="https://res.cloudinary.com/donoutoby/image/upload/v1654671112/4dd277_835e8d46ca034bd4a8448647bec05a45_igtz7v.gif" alt="cargando..." />
             </div>
         )
     }
