@@ -14,7 +14,6 @@ export const Game = () => {
     const [naprobado, setNaprobado] = useState(0);
     const [vida, setVida] = useState(3);
     const [round, setRound] = useState(0);
-    const [corazones, setCorazones] = useState(100)
    
     let total = 0;
     let item = 0;
@@ -100,7 +99,7 @@ export const Game = () => {
                         <thead>
                             <tr>
                                 <th scope="col">Continuar</th>
-                                <th scope="col"><div className='option text-center' onClick={(e) => window.location.replace('')}>Si</div></th>
+                                <th scope="col"><Link className='option' to="/game1">Si</Link></th>
                                 <th scope="col">/</th>
                                 <th scope="col option"><Link className='option' to="/">No</Link></th>
                             </tr>
