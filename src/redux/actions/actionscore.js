@@ -4,8 +4,7 @@ import { typesScore } from "../types/types";
 
 export const listScore = () => {
     return async (dispatch) => {
-        const querySnapshot = await getDocs(collection(db, "puntos"));
-        console.log(querySnapshot)
+        const querySnapshot = await getDocs(collection(db, "puntaje"));
         const punto = [];
         querySnapshot.forEach((doc) => {
             punto.push({
@@ -23,12 +22,12 @@ export const list = (puntos) => {
     }
 }
 
-export const registerPunto = (round, aprobado) => {
+export const registerPunto = (round, aprobado, trofeos) => {
     return (dispatch) => {
         const newScore = {
-            round, aprobado
+            round, aprobado, trofeos
         }
-        addDoc(collection(db, "puntos"), newScore)
+        addDoc(collection(db, "puntaje"), newScore)
         .then(resp => {
             dispatch(registroScoresincrono(newScore))
         })

@@ -2,8 +2,6 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/actions/actionLogin';
-import { Game } from './Game';
-import { Score } from './Score';
 
 export const Menu = (history) => {
     const dispatch = useDispatch();
@@ -25,7 +23,7 @@ export const Menu = (history) => {
                     </Link>
                     <Link className='col boton mx-5 links' to="/Score">
                         <img className='icono' src='https://res.cloudinary.com/donoutoby/image/upload/v1654673509/descargar_aszpnd.png' alt='mis puntos' />
-                        <h3>Mis Puntos</h3>
+                        <h3>Trofeos</h3>
                     </Link>
                     <div className='col boton mx-5 links' onClick={handleLogout}>
                         <img className='icono' src='https://res.cloudinary.com/donoutoby/image/upload/v1654672452/images_exdiaj.png' alt='cerrar sesion' />

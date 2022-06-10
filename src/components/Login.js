@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { loginEmailPassword, loginFacebook, loginGoogle } from '../redux/actions/actionLogin';
+import { loginEmailPassword, loginGoogle } from '../redux/actions/actionLogin';
 import { useForm } from '../hook/useForm';
 
 

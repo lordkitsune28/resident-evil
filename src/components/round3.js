@@ -3,7 +3,7 @@ import { ProgressBar } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { quiz3 } from '../helpers/preguntas';
-import { registerPunto } from '../redux/actions/actionscore';
+import { registerPunto } from '../redux/actions/actionScore';
 
 export const Round3 = () => {
   const dispatch = useDispatch();
@@ -13,15 +13,17 @@ export const Round3 = () => {
   const [naprobado, setNaprobado] = useState(0);
   const [vida, setVida] = useState(3);
   const [round, setRound] = useState(0);
- 
+
   let total = 0;
   let item = 0;
   let respuesta;
+  const nivel = 3;
+  let trofeos = false
 
   const preguntas = () => {
 
-      const posicion = Math.floor(Math.random() * (5 - 1) + 1);
-      setPuesto(posicion)
+    const posicion = Math.floor(Math.random() * (5 - 1) + 1);
+    setPuesto(posicion)
 
   }
 
@@ -29,127 +31,129 @@ export const Round3 = () => {
   const quiz = quiz3.filter((val) => val.id === puesto)
 
   useEffect(() => {
-      preguntas();
+    preguntas();
   }, [])
   const evaluar = (e) => {
-      respuesta = e.target.value
-      item = 1
-      console.log(respuesta)
-      quiz.forEach(Element => {
-          const { correcta } = Element
-          if (respuesta === correcta) {
-              setAprobado(aprobado + item)
-              enviar()
-          } else {
-             
-              setNaprobado(naprobado + item)
-              setVida(vida - 1)
-              enviar()
-             
-          }
-          
-      })
-      
-      preguntas()
+    respuesta = e.target.value
+    item = 1
+    console.log(respuesta)
+    quiz.forEach(Element => {
+      const { correcta } = Element
+      if (respuesta === correcta) {
+        setAprobado(aprobado + item)
+        enviar()
+      } else {
+
+        setNaprobado(naprobado + item)
+        setVida(vida - 1)
+        enviar()
+
+      }
+
+    })
+
+    preguntas()
   }
 
   const enviar = () => {
-      total = aprobado + naprobado
+    total = aprobado + naprobado
 
-      if (total === 4) {
-          setRound(total)
-          const round = 3;
-          dispatch(registerPunto(round, aprobado))
+    if (total === 5) {
+      trofeos = true;
+      setRound(total)
+      dispatch(registerPunto(nivel, aprobado, trofeos))
+      localStorage.setItem("premio3", JSON.stringify({
+        aprobado, trofeos, nivel
+    }));
 
-
-      }
+    }
   }
   if (vida === 0) {
-      return (
-          <div className='w-100'>
-              <div className='w-100'>
-                  <table className="table continuar">
-                      <thead>
-                          <tr>
-                              <th scope="col">Continuar</th>
-                              <th scope="col"><div className='option text-center' onClick={(e) => window.location.replace('')}>Si</div></th>
-                              <th scope="col">/</th>
-                              <th scope="col option"><Link className='option' to="/">No</Link></th>
-                          </tr>
-                      </thead>
+    return (
+      <div className='w-100'>
+        <div className='w-100'>
+          <table className="table continuar">
+            <thead>
+              <tr>
+                <th scope="col">Continuar</th>
+                <th scope="col"><div className='option text-center' onClick={(e) => window.location.replace('')}>Si</div></th>
+                <th scope="col">/</th>
+                <th scope="col option"><Link className='option' to="/">No</Link></th>
+              </tr>
+            </thead>
 
-                  </table>
-              </div>
-              <img className='gameover' src='https://res.cloudinary.com/donoutoby/image/upload/v1654714800/sCr7ET_kwhk3h.gif' alt='has muerto' />
-          </div>
-      )
-  } else if (round === 4) {
+          </table>
+        </div>
+        <img className='gameover' src='https://res.cloudinary.com/donoutoby/image/upload/v1654714800/sCr7ET_kwhk3h.gif' alt='has muerto' />
+      </div>
+    )
+  } else if (round === 5) {
 
 
-      return (
-          <div className='text-center pt-2'>
-              <div className='w-50 mt-4 mx-auto'>
-                  <img className='gameover' src='https://res.cloudinary.com/donoutoby/image/upload/v1654765114/resident-evil-5-2016628152840_1_uawxyo.jpg' alt='fin del round 1' />
-                  <h1>Has sobrevivido al round 3</h1>
-                  <p>felicidades lograste sobrevivir al tercer round,
-                      hola de nuevo, quien lo diria lograste sobrevivir al tercer round... yo ya te hacia combertido en Zombie... 
-                      jeje considerate un sobreviviente nato, por cierto desbloqueaste otro personaje en la seccion de trofeos 
-                      <br/><br/>
-                      P.D. ¿cual es tu personaje masculino favorito leon s. Kennedy o Chris Redfield?...
-                      el mio es leon s. Kennedy :v
-                      <br/>
-                      att: "lord kitsune" </p>
-                  <table className="table continuar">
-                      <thead>
-                          <tr>
-                              <th scope="col">Continuar</th>
-                              <th scope="col"><Link className='option' to="/game3">Si</Link></th>
-                              <th scope="col">/</th>
-                              <th scope="col option"><Link className='option' to="/">No</Link></th>
-                          </tr>
-                      </thead>
-                  </table>
-              </div>
-          </div>
-      )
+    return (
+      <div className='text-center pt-2'>
+        <div className='w-50 mt-4 mx-auto'>
+          <img className='gameover' src='https://res.cloudinary.com/donoutoby/image/upload/v1654765114/resident-evil-5-2016628152840_1_uawxyo.jpg' alt='fin del round 1' />
+          <h1>Has sobrevivido al round 3</h1>
+          <p>felicidades lograste sobrevivir al tercer round,
+            hola de nuevo, quien lo diria lograste sobrevivir al tercer round... yo ya te hacia combertido en Zombie...
+            jeje considerate un sobreviviente nato, por cierto desbloqueaste otro personaje en la seccion de trofeos
+            <br /><br />
+            P.D. ¿cual es tu personaje masculino favorito leon s. Kennedy o Chris Redfield?...
+            el mio es leon s. Kennedy :v
+            <br />
+            att: "lord kitsune" </p>
+          <table className="table continuar">
+            <thead>
+              <tr>
+                <th scope="col">Continuar</th>
+                <th scope="col"><Link className='option' to="/game3">Si</Link></th>
+                <th scope="col">/</th>
+                <th scope="col option"><Link className='option' to="/">No</Link></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    )
   }
   else {
-      
-      return (
-          <div className='text-center'>
-              <Link className='atras' to="/">
-                  <img className="w-25" src="https://res.cloudinary.com/donoutoby/image/upload/v1654711147/white-arrow-99-700x471_kqcs7v.png" alt="atras" />
-                  <p>Atras</p>
-              </Link>
 
-              <div>
+    return (
+      <div className='text-center'>
+        <Link className='atras' to="/">
+          <img className="w-25" src="https://res.cloudinary.com/donoutoby/image/upload/v1654711147/white-arrow-99-700x471_kqcs7v.png" alt="atras" />
+          <p>Atras</p>
+        </Link>
 
-              <div className='w-75 mt-5 d-inline-block'>
-                      <ProgressBar variant="success" min={1} max={3} now={vida} />
-                  </div>
+        <div>
 
-                  {
-                      quiz.map((charap, id) => (
-                          <div className="card mx-auto mt-5 bg-transparent" style={{ width: "35rem" }} key={id}>
-                              <img className='card-img-top mx-auto w-75' src={charap.img} alt={charap.pregunta} />
-                              <div className='card-body'>
-                                  <h4 className='card-title'>{charap.pregunta}</h4>
-
-
-                                  <div className='btn-group-vertical'>
-                                      <button value={charap.a} className="btn btn-outline-light my-2" onClick={(e) => evaluar(e)} id={charap.a}>{charap.a}</button>
-                                      <button value={charap.b} className="btn btn-outline-light my-2" onClick={(e) => evaluar(e)} id={charap.b}>{charap.b}</button>
-                                      <button value={charap.c} className="btn btn-outline-light my-2" onClick={(e) => evaluar(e)} id={charap.c}>{charap.c}</button>
-                                      <button value={charap.d} className="btn btn-outline-light my-2" onClick={(e) => evaluar(e)} id={charap.d}>{charap.d}</button>
-                                  </div>
-                              </div>
-                          </div>
-                      ))
-                  }
-
-              </div>
-
+          <div className='w-75 mt-5 d-inline-block'>
+            <ProgressBar variant="success" min={1} max={3} now={vida} />
           </div>
-      )
+
+          {
+            quiz.map((charap, id) => (
+              <div className="card mx-auto mt-5 bg-transparent" style={{ width: "35rem" }} key={id}>
+                <img className='card-img-top mx-auto w-75' src={charap.img} alt={charap.pregunta} />
+                <div className='card-body'>
+                  <h4 className='card-title'>{charap.pregunta}</h4>
+
+
+                  <div className='btn-group-vertical'>
+                    <button value={charap.a} className="btn btn-outline-light my-2" onClick={(e) => evaluar(e)} id={charap.a}>{charap.a}</button>
+                    <button value={charap.b} className="btn btn-outline-light my-2" onClick={(e) => evaluar(e)} id={charap.b}>{charap.b}</button>
+                    <button value={charap.c} className="btn btn-outline-light my-2" onClick={(e) => evaluar(e)} id={charap.c}>{charap.c}</button>
+                    <button value={charap.d} className="btn btn-outline-light my-2" onClick={(e) => evaluar(e)} id={charap.d}>{charap.d}</button>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+
+        </div>
+
+      </div>
+    )
   }
 }

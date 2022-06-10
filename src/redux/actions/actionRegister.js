@@ -1,5 +1,5 @@
 import {  getAuth, createUserWithEmailAndPassword, updateProfile  } from "@firebase/auth";
-import { types, typesLogin } from "../types/types";
+import { types } from "../types/types";
 
 export const registroEmailPasswordNombre = (email,password,name) => {
     return(dispatch) => {

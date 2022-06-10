@@ -5,5 +5,7 @@ export const types = {
 }
 export const typesScore= {
     list: 'list',
-    agregar: "agregar"
+    agregar: "agregar",
+    edit: 'edit',
+    delete: 'delete'
 }

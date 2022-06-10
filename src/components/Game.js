@@ -3,7 +3,7 @@ import { ProgressBar } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { quiz1 } from '../helpers/preguntas'
-import { registerPunto } from '../redux/actions/actionscore';
+import { registerPunto } from '../redux/actions/actionScore';
 
 
 export const Game = () => {
@@ -14,10 +14,12 @@ export const Game = () => {
     const [naprobado, setNaprobado] = useState(0);
     const [vida, setVida] = useState(3);
     const [round, setRound] = useState(0);
-   
+
     let total = 0;
     let item = 0;
+    const nivel = 1;
     let respuesta;
+    let trofeos = false;
 
     const preguntas = () => {
 
@@ -35,33 +37,34 @@ export const Game = () => {
     const evaluar = (e) => {
         respuesta = e.target.value
         item = 1
-        console.log(respuesta)
         quiz.forEach(Element => {
             const { correcta } = Element
             if (respuesta === correcta) {
                 setAprobado(aprobado + item)
                 enviar()
             } else {
-               
+
                 setNaprobado(naprobado + item)
                 setVida(vida - 1)
                 enviar()
-               
+
             }
-            
+
         })
-        
+
         preguntas()
     }
 
     const enviar = () => {
         total = aprobado + naprobado
 
-        if (total === 4) {
+        if (total === 5) {
+            trofeos = true
             setRound(total)
-            const round = 1;
-            dispatch(registerPunto(round, aprobado))
-
+            dispatch(registerPunto(nivel, aprobado, trofeos))
+            localStorage.setItem("premio1", JSON.stringify({
+                aprobado, trofeos, nivel
+            }));
 
         }
     }
@@ -78,13 +81,14 @@ export const Game = () => {
                                 <th scope="col option"><Link className='option' to="/">No</Link></th>
                             </tr>
                         </thead>
-
+                        
                     </table>
                 </div>
                 <img className='gameover' src='https://res.cloudinary.com/donoutoby/image/upload/v1654714800/sCr7ET_kwhk3h.gif' alt='has muerto' />
+            
             </div>
         )
-    } else if (round === 4) {
+    } else if (round === 5) {
 
 
         return (
@@ -110,7 +114,7 @@ export const Game = () => {
         )
     }
     else {
-        
+
         return (
             <div className='text-center'>
                 <Link className='atras' to="/">
@@ -120,7 +124,7 @@ export const Game = () => {
 
                 <div>
 
-                <div className='w-75 mt-5 d-inline-block'>
+                    <div className='w-75 mt-5 d-inline-block'>
                         <ProgressBar variant="success" min={1} max={3} now={vida} />
                     </div>
 

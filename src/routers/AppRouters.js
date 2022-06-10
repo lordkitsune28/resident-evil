@@ -12,8 +12,6 @@ import { useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
 import { loginEmailPassword } from "../redux/actions/actionLogin";
 import { Register } from "../components/Register";
-import { Spinner } from "react-bootstrap";
-
 
 export const AppRouters = () => {
 
